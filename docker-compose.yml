@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mrs-postgres
+    environment:
+      POSTGRES_DB: mrs-db
+      POSTGRES_USER: local-user-mrs
+      POSTGRES_PASSWORD: local-password-mrs
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mailpit:
+    image: axllent/mailpit:v1.21
+    container_name: mrs-mailpit
+    ports:
+      - "8025:8025" #Panel podglądu odebranych maili
+      - "1025:1025" #SMTP do wysyłania maili
+
+volumes:
+  postgres_data:
